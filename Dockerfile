@@ -12,7 +12,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:1.27.4
+FROM nginxinc/nginx-unprivileged  
 
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
