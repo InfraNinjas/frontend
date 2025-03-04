@@ -1,4 +1,4 @@
-FROM node:lts-slim AS builder
+FROM docker.io/node:lts-slim AS builder
 
 #RUN mkdir -p /usr/src/app
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged  
+FROM docker.io/nginxinc/nginx-unprivileged  
 
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
