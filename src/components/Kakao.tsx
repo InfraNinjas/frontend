@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
+import CreateMarker from "./CreateMarker";
 import Marker from "./Marker";
 
 export interface Position {
@@ -7,13 +8,37 @@ export interface Position {
   lng: number;
 }
 
+export interface Restaurant {
+  id: number;
+  name: string;
+  x: number;
+  y: number;
+}
+
 function KakaoMap() {
   const [position, setPosition] = useState<Position | null>();
+  const [restaurants, setRestaurants] = useState<Restaurant[] | null>();
+
+  useEffect(() => {
+    fetch("/api/restaurants")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setRestaurants(data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   return (
     <>
       <Map
-        center={{ lat: 37.56949449709, lng: 126.98595537882869 }}
+        center={{ lat: 37.56945845794429, lng: 126.98596104532344 }}
         style={{ width: "100%", height: "100%" }}
         level={2}
         onClick={(_, mouseEvent) => {
@@ -25,8 +50,11 @@ function KakaoMap() {
         }}
       >
         {position ? (
-          <Marker position={position} setPosition={setPosition} />
+          <CreateMarker position={position} setPosition={setPosition} />
         ) : null}
+        {restaurants?.map((restaurant, index) => (
+          <Marker restaurant={restaurant} key={index} />
+        ))}
       </Map>
     </>
   );
