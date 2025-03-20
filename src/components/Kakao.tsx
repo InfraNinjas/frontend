@@ -21,7 +21,6 @@ function KakaoMap() {
   });
   const [position, setPosition] = useState<Position | null>();
   const [restaurants, setRestaurants] = useState<Restaurant[] | null>();
-
   useEffect(() => {
     fetch("/api/restaurants")
       .then((res) => {
@@ -52,8 +51,13 @@ function KakaoMap() {
           });
         }}
       >
-        {position ? (
-          <CreateMarker position={position} setPosition={setPosition} />
+        {position && restaurants ? (
+          <CreateMarker
+            position={position}
+            setPosition={setPosition}
+            restaurants={restaurants}
+            setRestaurants={setRestaurants}
+          />
         ) : null}
         {restaurants?.map((restaurant, index) => (
           <Marker restaurant={restaurant} key={index} />

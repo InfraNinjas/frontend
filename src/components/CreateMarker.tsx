@@ -1,5 +1,5 @@
 import { MapMarker } from "react-kakao-maps-sdk";
-import { Position } from "./Kakao";
+import { Position, Restaurant } from "./Kakao";
 import { Dispatch, SetStateAction } from "react";
 
 import styles from "./CreateMarker.module.scss";
@@ -8,11 +8,34 @@ import StarRating from "./StarRating";
 type Props = {
   position: Position;
   setPosition: Dispatch<SetStateAction<Position | null | undefined>>;
+  restaurants: Restaurant[];
+  setRestaurants: Dispatch<SetStateAction<Restaurant[] | null | undefined>>;
 };
 
 function CreateMarker(props: Props) {
   const onClickMarker = () => {
     props.setPosition(null);
+  };
+
+  const onSubmit = (formData: FormData) => {
+    fetch("/api/restaurants", {
+      method: "POST",
+      body: JSON.stringify(Object.fromEntries(formData.entries())),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        props.setRestaurants([...props.restaurants, data]);
+        props.setPosition(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -22,11 +45,7 @@ function CreateMarker(props: Props) {
       onClick={onClickMarker}
     >
       <div>
-        <form
-          className={styles.infowindow}
-          method="post"
-          action="/api/restaurants"
-        >
+        <form className={styles.infowindow} action={onSubmit}>
           <div className={styles.inputdiv}>
             <label htmlFor="name">이름</label>
             <input
