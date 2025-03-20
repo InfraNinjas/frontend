@@ -16,7 +16,7 @@ export interface Restaurant {
 }
 
 function KakaoMap() {
-  const [loading, error] = useKakaoLoader({
+  useKakaoLoader({
     appkey: import.meta.env.VITE_API_KEY,
   });
   const [position, setPosition] = useState<Position | null>();
