@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Map } from "react-kakao-maps-sdk";
+import { Map, useKakaoLoader } from "react-kakao-maps-sdk";
 import CreateMarker from "./CreateMarker";
 import Marker from "./Marker";
 
@@ -16,6 +16,9 @@ export interface Restaurant {
 }
 
 function KakaoMap() {
+  const [loading, error] = useKakaoLoader({
+    appkey: import.meta.env.VITE_API_KEY,
+  });
   const [position, setPosition] = useState<Position | null>();
   const [restaurants, setRestaurants] = useState<Restaurant[] | null>();
 
