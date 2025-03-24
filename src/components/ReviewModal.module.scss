@@ -1,0 +1,37 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.headerbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0.25rem 0;
+}
+
+.addbutton {
+  padding: 0.125rem 1.25rem;
+}
+
+.reviewbox {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 1rem;
+}
+
+.star {
+  display: flex;
+  justify-content: right;
+  color: orange;
+}
+
+.closebutton {
+  margin: 1rem 0;
+}
