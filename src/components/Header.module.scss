@@ -6,30 +6,38 @@
   left: 0;
   background: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
-  padding: 0 2rem;
 }
 
 .wrapper {
   height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .menus {
+  height: 4rem;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
 }
 
 .logo {
   font-size: 1.125rem;
   font-weight: 800;
   letter-spacing: 2px;
-  cursor: default;
+  color: black;
+  cursor: pointer;
 }
 
 .link {
   margin-left: 2rem;
-  cursor: default;
+  color: black;
+  cursor: pointer;
+}
+
+.image {
+  margin-left: 2rem;
+  cursor: pointer;
 }
 
 .spacer {

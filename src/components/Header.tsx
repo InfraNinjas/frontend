@@ -10,8 +10,8 @@ export default function Header() {
             <Link to="/">
               <div className={styles.logo}>맛집지도</div>
             </Link>
-            <Link to="/random">
-              <div className={styles.link}>test</div>
+            <Link to="https://www.kolonbenit.com/main/index.do">
+              <img src="/logo.png" width="30px" className={styles.image} />
             </Link>
           </div>
         </div>
